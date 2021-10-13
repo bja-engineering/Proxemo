@@ -1,10 +1,6 @@
-# Proxemo
+# Proxemo app for Tizen
 
-The Proxemo app for Tizen was conceptualised by Stephan Huber and implemented by Jan Erik Fischer.
-
-The Proxemo app for Android Wear was adapted and implemented by Alex Bejan.
-
-The Proxemo app for Android was conceptualised by Stephan Huber and the implementation is based on Alex Bejan's implementation for Android Wear.
+This is the Proxemo app for Samsung's Tizen OS. It was conceptualised by Stephan Huber and implemented by Jan Erik Fischer.
 
 For any questions on the method or usage of Proxemo please contact:
 stephan.huber@uni-wuerzburg.de
