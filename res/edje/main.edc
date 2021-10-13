@@ -1,0 +1,226 @@
+#define BG_COLOR 211 211 211 255
+
+#define PART_BUTTON(NAME, TXT, POSITION, ANGLE) \
+part {\
+   name: NAME".emotion";\
+   type: IMAGE;\
+   mouse_events: 1;\
+   description {\
+      state: "default" 0;\
+      fixed: 1 1;\
+      align: 0.0 0.0;\
+      min: 80 80;\
+      visible: 1;\
+      rel1 { relative: POSITION; to: "sw.button.bg"; }\
+      rel2 { relative: POSITION; to: "sw.button.bg"; }\
+      image.normal: NAME".png";\
+   }\
+}\
+part {\
+   name: NAME".txt";\
+   type: TEXT;\
+   mouse_events: 0;\
+   description {\
+      state: "default" 0;\
+      fixed: 1 1;\
+      align: 0.0 0.0;\
+      min: 50 24;\
+      rel1 { relative: 0.0 1.0; offset: 0 -8; to: NAME".emotion"; }\
+      rel2 { relative: 0.0 1.0; offset: 0 -8; to: NAME".emotion"; }\
+      text { \
+         text: TXT;\
+         font: "Tizen:style=regular"; size: 12; align: 0.5 0.5; \
+      }\
+      color : 50 50 50 (255*77/100);\
+   }\
+}\
+part { name: NAME".cake_pice";\
+   type: IMAGE;\
+   insert_before: NAME".emotion";\
+   description { state: "default" 0.0;\
+      rel1 { relative: 0.5 0.5;\
+         to: "sw.button.bg";}\
+      rel2 { relative: 0.5 0.5;\
+         to: "sw.button.bg";}\
+      min: 360 360;\
+      max: 360 360;\
+      color : 52 180 52 0;\
+      visible: 0;\
+      image {\
+         normal: "cake_pice_new.png";\
+      }\
+      map {\
+         on: 1;\
+         rotation {\
+            x: 0.0;\
+            y: 0.0;\
+            z: ANGLE;\
+         }\
+      }\
+   }\
+   description{ state:"glowing";\
+      image {\
+         normal: "cake_pice_new.png";\
+      }\
+      map {\
+         on: 1;\
+         rotation {\
+            x: 0.0;\
+            y: 0.0;\
+            z: ANGLE;\
+         }\
+      }\
+      visible: 1;\
+      color: 52 180 52 255;\
+   }\
+}\
+
+#define PROGRAM_EMOTION_PRESSED_ANIMATION(NAME) \
+program\
+{\
+   name: NAME".animation";\
+   signal: NAME".touch";\
+   action: STATE_SET "glowing" 1.0;\
+   transition: SIN 0.7;\
+   target: NAME".cake_pice";\
+   after: NAME".animation2";\
+}\
+program\
+{\
+   name: NAME".animation2";\
+   in: 1.0 0.0;\
+   action: STATE_SET "default" 1.0;\
+   transition: SIN 0.7;\
+   target: NAME".cake_pice";\
+}
+
+images
+{
+   image: "anger.png" COMP;
+   image: "fear.png" COMP;
+   image: "sadness.png" COMP;
+   image: "pleasure.png" COMP;
+   image: "general_alertness.png" COMP;
+   image: "cake_pice_new.png" COMP;
+   image: "emotion_button_bg.png" COMP;
+   image: "fullcakeMask.png" COMP;
+}
+
+collections {
+   group { name: "main";
+      parts { 
+         part { name: "bg";
+            type: RECT;
+            description { state: "default" 0.0;
+               rel1 { relative: 0.0 0.0; }
+               rel2 { relative: 1.0 1.0; }
+               color : BG_COLOR;
+            }
+         }
+         part { name: "sw.button.bg";
+            type: IMAGE;
+            description { state: "default" 0.0;
+               rel1 { relative: 0.0 0.0; }
+               rel2 { relative: 1.0 1.0; }
+               image {
+                  normal: "emotion_button_bg.png";
+               }
+            }
+         }
+         part{ name: "user1";
+            type: SWALLOW;
+            clip_to: "mask";
+            description { state: "default" 0.0;
+               rel1 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               rel2 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               min: 150 150;
+               max: 150 150;
+            }
+            description { state: "glowing" 0.0;
+               rel1 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               rel2 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               min: 150 150;
+               max: 150 150;
+               color: 52 180 52 255;
+            }
+         }
+         part{ name: "user1.cakepice";
+            type: RECT;
+            clip_to: "mask";
+            description { state: "default" 0.0;
+               rel1 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               rel2 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               min: 150 150;
+               max: 150 150;
+               color: 52 180 52 0;
+               visible: 0;
+            }
+            description { state: "glowing" 0.0;
+               rel1 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               rel2 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               min: 150 150;
+               max: 150 150;
+               color: 52 180 52 175;
+               visible: 1;
+            }
+         }
+
+         part{ name: "mask";
+            type: IMAGE;
+            description 
+            {
+               state: "default" 0.0;
+               rel1 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               rel2 { relative: 0.5 0.5;
+                  to: "sw.button.bg";}
+               min: 150 150;
+               max: 150 150;
+               image.normal: "fullcakeMask.png";
+            }
+         }
+
+         /*
+         */
+         PART_BUTTON("pleasure", "",   140/360 12/360, 0);
+         PART_BUTTON("sadness", "",   264/360 100/360, 72);
+         PART_BUTTON("fear", "",   215/360 244/360, 144);
+         PART_BUTTON("anger", "",   65/360 244/360, 216);
+         PART_BUTTON("general_alertness", "",   18/360 100/360, 288);
+      }
+      programs 
+      {
+         PROGRAM_EMOTION_PRESSED_ANIMATION("anger");
+         PROGRAM_EMOTION_PRESSED_ANIMATION("fear");
+         PROGRAM_EMOTION_PRESSED_ANIMATION("general_alertness");
+         PROGRAM_EMOTION_PRESSED_ANIMATION("pleasure");
+         PROGRAM_EMOTION_PRESSED_ANIMATION("sadness");
+
+         program
+         {
+            name: "reminiscence.animation";
+            signal: "reminiscence.touch";
+            action: STATE_SET "glowing" 1.0;
+            transition: SIN 0.7;
+            target: "user1.cakepice";
+            after: "reminiscence.animation2";
+         }
+         program
+         {
+            name: "reminiscence.animation2";
+            in: 1.0 0.0;
+            action: STATE_SET "default" 1.0;
+            transition: SIN 0.7;
+            target: "user1.cakepice";
+         }
+      }
+   }
+}

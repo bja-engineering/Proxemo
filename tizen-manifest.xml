@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3.2" package="org.uniwue.proxemo" version="1.5.3">
+    <author email="jan_erik.fischer@stud-mailuni-wuerzburg.de">Jan Erik Fischer</author>
+    <profile name="wearable"/>
+    <ui-application appid="org.uniwue.proxemo" exec="proxemo" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+        <label>proxemo</label>
+        <label xml:lang="en-gb">English</label>
+        <icon>general_alertness.png</icon>
+    </ui-application>
+    <privileges>
+        <privilege>http://tizen.org/privilege/mediastorage</privilege>
+    </privileges>
+    <feature name="http://tizen.org/feature/screen.shape.circle">true</feature>
+    <feature name="http://tizen.org/feature/screen.size.normal.360.360">true</feature>
+    <feature name="http://tizen.org/feature/input.rotating_bezel">true</feature>
+</manifest>

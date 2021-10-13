@@ -1,0 +1,6 @@
+build main_build: phony proxemo res
+build all: phony main_build
+default all
+edje-cc-dep-options = -deps $out.d
+apichecker-options = -api-version=2.3.2 -current-profile=wearable -privilege-list=http://tizen.org/privilege/mediastorage
+binaryName = proxemo
